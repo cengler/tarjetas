@@ -45,16 +45,23 @@ routes.Account.listCards(newPage, sortBy, order, currentFilter)
     </div>
     }
 
-    <div id="actions">
+	<form class="form-search" action="@link(0, "name")" method="GET">
+        <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de tarjeta ...">
+        <input type="submit" id="searchsubmit" value="Filtrar por nombre" class="btn btn-primary">
+    </form>
+	
+	<a class="btn btn-success" id="add" href="@routes.Account.createCard()">Agregar Tarjeta</a>
+
+    <!--div id="actions">
 
         <form action="@link(0, "name")" method="GET">
         <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de tarjeta...">
-        <input type="submit" id="searchsubmit" value="Filtrar por nombre" class="btn primary">
+        <input type="submit" id="searchsubmit" value="Filtrar por nombre" class="btn btn-primary">
         </form>
 
-        <a class="btn success" id="add" href="@routes.Account.createCard()">Agregar Tarjeta</a>
+        <a class="btn btn-success" id="add" href="@routes.Account.createCard()">Agregar Tarjeta</a>
 
-    </div>
+    </div-->
 
     @if(currentPage.getTotalRowCount == 0) {
 
@@ -64,7 +71,7 @@ routes.Account.listCards(newPage, sortBy, order, currentFilter)
 
     } else {
 
-        <table class="computers zebra-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 @header("name", "Nombre")
