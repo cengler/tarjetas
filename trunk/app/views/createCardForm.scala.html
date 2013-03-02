@@ -1,0 +1,39 @@
+@(cardForm: Form[CardAccount])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Crear Tarjeta</h1>
+    
+    @form(routes.Account.saveCard()) {
+        
+        <fieldset>
+            @inputText(cardForm("name"), '_label -> "Nombre" )
+            @inputText(cardForm("number"), '_label -> "Numero")
+            @input(cardForm("since")) { (id, name, value, args) =>
+            <input type="date" name="@name" id="@id" @toHtmlArgs(args)>
+            }
+            @input(cardForm("through")) { (id, name, value, args) =>
+            <input type="date" name="@name" id="@id" @toHtmlArgs(args)>
+            }
+            @inputText(cardForm("closeWeekNumber"), '_label -> "Numero de samana de cierre")
+            @select(
+            cardForm("closeWeekday"),
+            options("LUNES"->"Lunes", "MARTES"->"Martes", "MIERCOLES"->"Miercoles", "JUEVES"->"Jueves", "VIERNES"->"Viernes", "SABADO"->"Sabado", "DOMINGO"->"Domingo"),
+            '_label -> "Dia de la semana de cierre",
+            '_default -> "-- Seleccione dia de la semana --"
+            )
+            @inputText(cardForm("payDay"), '_label -> "Dia de Cobro")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Crear esta tarjeta" class="btn primary"> or
+            <a href="@routes.Account.listCards()" class="btn">Cancelar</a>
+        </div>
+        
+    }
+    
+}

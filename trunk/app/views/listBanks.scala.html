@@ -1,0 +1,123 @@
+@(currentPage: com.avaje.ebean.Page[BankAccount], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage:Int, newSortBy:String) = @{
+
+var sortBy = currentSortBy
+var order = currentOrder
+
+if(newSortBy != null) {
+sortBy = newSortBy
+if(currentSortBy == newSortBy) {
+if(currentOrder == "asc") {
+order = "desc"
+} else {
+order = "asc"
+}
+} else {
+order = "asc"
+}
+}
+
+// Generate the link
+routes.Account.listBanks(newPage, sortBy, order, currentFilter)
+
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(key:String, title:String) = {
+<th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
+<a href="@link(0, key)">@title</a>
+</th>
+}
+
+@main {
+
+    <h1 id="homeTitle">Cuentas</h1>
+
+    @if(flash.containsKey("success")) {
+    <div class="alert-message warning">
+        <strong>Hecho!</strong> @flash.get("success")
+    </div>
+    }
+
+    <div id="actions">
+
+        <form action="@link(0, "name")" method="GET">
+        <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de cuenta...">
+        <input type="submit" id="searchsubmit" value="Filtrar por nombre" class="btn primary">
+        </form>
+
+        <a class="btn success" id="add" href="@routes.Account.createBank()">Agregar Cuenta</a>
+
+    </div>
+
+    @if(currentPage.getTotalRowCount == 0) {
+
+    <div class="well">
+        <em>No hay cuentas</em>
+    </div>
+
+    } else {
+
+        <table class="computers zebra-striped">
+            <thead>
+            <tr>
+                @header("name", "Nombre")
+                @header("number", "Numero")
+                <th>Accion</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @for(bank <- currentPage.getList) {
+            <tr>
+                <td><a href="@routes.Account.editBank(bank.id)">@bank.name</a></td>
+                <td>
+                    @if(bank.number == null) {
+                    <em>-</em>
+                    } else {
+                    @bank.number
+                    }
+                </td>
+                <td><a href="@routes.MovementCont.listMovements(0,"description","asc","",bank.id)">Ver Movimientos</a></td>
+            </tr>
+            }
+
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @if(currentPage.hasPrev) {
+                <li class="prev">
+                    <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Anterior</a>
+                </li>
+                } else {
+                <li class="prev disabled">
+                    <a>&larr; Anterior</a>
+                </li>
+                }
+                <li class="current">
+                    <a>Mostrando desde @currentPage.getDisplayXtoYofZ(" a "," de un total de ")</a>
+                </li>
+                @if(currentPage.hasNext) {
+                <li class="next">
+                    <a href="@link(currentPage.getPageIndex + 1, null)">Sigiente &rarr;</a>
+                </li>
+                } else {
+                <li class="next disabled">
+                    <a>Sigiente &rarr;</a>
+                </li>
+                }
+            </ul>
+        </div>
+    }
+
+}
+
+            

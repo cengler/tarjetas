@@ -1,0 +1,49 @@
+@(id: Long, movementForm: Form[Movement])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Editar Movimiento</h1>
+    
+    @form(routes.MovementCont.updateMovement(id)) {
+        
+        <fieldset>
+            @inputText(movementForm("description"), '_label -> "Concepto" )
+            @select(
+            movementForm("ptype"),
+            options("INGRESO"->"Ingreso","EGRESO"->"Egreso"),
+            '_label -> "Tipo",
+            '_default -> "-- Seleccione tipo de gasto --"
+            )
+            @select(
+            movementForm("category.id"),
+            options(models.Category.all),
+            '_label -> "Categoria", '_default -> "-- Seleccione una categoria --",
+            '_showConstraints -> false
+            )
+            @inputText(movementForm("amount"), '_label -> "Monto" )
+            @input(movementForm("date")) { (id, name, value, args) =>
+            <input type="date" name="@name" id="@id" @toHtmlArgs(args)>
+            }
+            @select(
+            movementForm("account.id"),
+            options(models.Account.all),
+            '_label -> "Cuenta", '_default -> "-- Seleccione una cuenta --",
+            '_showConstraints -> false
+            )
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar cambios" class="btn primary"> or
+            <a href="@routes.MovementCont.listMovements()" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+    @form(routes.MovementCont.deleteMovement(id), 'class -> "topRight") {
+        <input type="submit" value="Borrar este movimiento" class="btn danger">
+    }
+}

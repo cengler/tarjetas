@@ -1,0 +1,29 @@
+@(id: Long, bankForm: Form[BankAccount])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Editar Cuenta</h1>
+    
+    @form(routes.Account.updateBank(id)) {
+        
+        <fieldset>
+            @inputText(bankForm("name"), '_label -> "Nombre" )
+            @inputText(bankForm("number"), '_label -> "Numero")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar cambios" class="btn primary"> or
+            <a href="@routes.Account.listBanks()" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+    @form(routes.Account.deleteBank(id), 'class -> "topRight") {
+        <input type="submit" value="Borrar esta cuenta" class="btn danger">
+    }
+    
+}

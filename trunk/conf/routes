@@ -2,8 +2,45 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# Default path will just redirect to the computer list
 GET     /                           controllers.Application.index()
+
+# card
+GET     /cards/new                  controllers.Account.createCard()
+POST    /cards                      controllers.Account.saveCard()
+GET     /cards/:id                  controllers.Account.editCard(id:Long)
+POST    /cards/:id                  controllers.Account.updateCard(id:Long)
+POST    /cards/:id/delete           controllers.Account.deleteCard(id:Long)
+GET     /cards                      controllers.Account.listCards(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+
+# bank
+GET     /banks/new                  controllers.Account.createBank()
+POST    /banks                      controllers.Account.saveBank()
+GET     /banks/:id                  controllers.Account.editBank(id:Long)
+POST    /banks/:id                  controllers.Account.updateBank(id:Long)
+POST    /banks/:id/delete           controllers.Account.deleteBank(id:Long)
+GET     /banks                      controllers.Account.listBanks(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+
+# category
+GET     /categorys/new              controllers.CategoryCont.createCategory()
+POST    /categorys                  controllers.CategoryCont.saveCategory()
+GET     /categorys/:id              controllers.CategoryCont.editCategory(id:Long)
+POST    /categorys/:id              controllers.CategoryCont.updateCategory(id:Long)
+POST    /categorys/:id/delete       controllers.CategoryCont.deleteCategory(id:Long)
+GET     /categorys                  controllers.CategoryCont.listCategorys(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+GET     /category/reports           controllers.CategoryCont.categoryAmountReport(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+GET     /category/pie               controllers.CategoryCont.getCategoryAmount()
+
+# payment
+GET     /movements/new              controllers.MovementCont.createPayment()
+POST    /movements                  controllers.MovementCont.savePayment()
+GET     /movements/:id              controllers.MovementCont.editMovement(id:Long)
+POST    /movements/:id              controllers.MovementCont.updateMovement(id:Long)
+POST    /movements/:id/delete       controllers.MovementCont.deleteMovement(id:Long)
+GET     /movements                  controllers.MovementCont.listMovements(p:Int ?= 0, s ?= "description", o ?= "asc", f ?= "", c:Long ?= 0)
+
+# closures
+GET     /closures                  controllers.ClosureCont.listClosures(p:Int ?= 0, s ?= "date", o ?= "asc", f ?= "")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

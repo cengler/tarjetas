@@ -1,0 +1,15 @@
+@(currentPage: com.avaje.ebean.Page[Category], currentSortBy: String, currentOrder: String, currentFilter: String)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@main {
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src='@routes.Assets.at("javascripts/graph.js")'></script>
+
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+}
+
+            

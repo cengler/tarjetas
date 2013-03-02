@@ -1,0 +1,42 @@
+@(id: Long, cardForm: Form[CardAccount])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Editar Tarjeta</h1>
+    
+    @form(routes.Account.updateCard(id)) {
+        
+        <fieldset>
+            @inputText(cardForm("name"), '_label -> "Nombre" )
+            @inputText(cardForm("number"), '_label -> "Numero")
+            @input(cardForm("since"), '_label -> "Fecha Desde") { (id, name, value, args) =>
+            <input type="date" name="@name" value="@value" id="@id" @toHtmlArgs(args)>
+            }
+            @input(cardForm("through"), '_label -> "Fecha Desde") { (id, name, value, args) =>
+            <input type="date" name="@name" value="@value" id="@id" @toHtmlArgs(args)>
+            }
+            @inputText(cardForm("closeWeekNumber"), '_label -> "Numero de samana de cierre")
+            @select(
+                cardForm("closeWeekday"),
+                options("LUNES"->"Lunes", "MARTES"->"Martes", "MIERCOLES"->"Miercoles", "JUEVES"->"Jueves", "VIERNES"->"Viernes", "SABADO"->"Sabado", "DOMINGO"->"Domingo"),
+                '_label -> "Dia de la semana de cierre",
+                '_default -> "-- Seleccione dia de la semana --"
+            )
+            @inputText(cardForm("payDay"), '_label -> "Dia de Cobro")
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Guardar cambios" class="btn primary"> or
+            <a href="@routes.Account.listCards()" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+    @form(routes.Account.deleteCard(id), 'class -> "topRight") {
+        <input type="submit" value="Borrar esta tarjeta" class="btn danger">
+    }
+}

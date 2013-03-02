@@ -1,0 +1,52 @@
+@(paymentForm: Form[Payment])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Crear Movimiento</h1>
+    
+    @form(routes.MovementCont.savePayment()) {
+        
+        <fieldset>
+            @inputText(paymentForm("description"), '_label -> "Concepto" )
+            @select(
+            paymentForm("ptype"),
+            options("INGRESO"->"Ingreso","EGRESO"->"Egreso"),
+            '_label -> "Tipo",
+            '_default -> "-- Seleccione tipo de gasto --"
+            )
+            @select(
+            paymentForm("category.id"),
+            options(models.Category.all),
+            '_label -> "Categoria", '_default -> "-- Seleccione una categoria --",
+            '_showConstraints -> false
+            )
+            @inputText(paymentForm("amount"), '_label -> "Monto" )
+			@input(paymentForm("date")) { (id, name, value, args) =>
+            <input type="date" name="@name" id="@id" @toHtmlArgs(args)>
+            }
+            @select(
+            paymentForm("account.id"),
+            options(models.Account.all),
+            '_label -> "Cuenta", '_default -> "-- Seleccione una cuenta --",
+            '_showConstraints -> false
+            )
+            @checkbox(
+            paymentForm("installment"),
+            '_label -> None, '_text -> "En Cuotas",
+            '_showConstraints -> false
+            )
+            @inputText(paymentForm("quantity"), '_label -> "Cantidad" )
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Crear este movimiento" class="btn primary"> or
+            <a href="@routes.MovementCont.listMovements()" class="btn">Cancelar</a>
+        </div>
+        
+    }
+    
+}
