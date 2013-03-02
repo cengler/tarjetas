@@ -4,25 +4,67 @@
 <html>
     <head>
         <title>Cuentas Claras</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")"> 
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-
+		<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("css/bootstrap.css")">
+		<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("css/bootstrap-responsive.css")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-
-        </head>
+		<script src="@routes.Assets.at("js/bootstrap.min.js")" type="text/javascript"></script>
+    </head>
     <body>
-        
-        <header class="topbar">
-            <h1 class="fill">
-                <a href="@routes.Application.index()">
-                    Cuentas Claras
-                </a>
-            </h1>
-        </header>
-        
-        <section id="main">
-            @content
-        </section>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Cuentas Claras</a>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        Logeado como <a href="#" class="navbar-link">invitado</a>
+                    </p>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Inicio</a></li>
+                        <li><a href="#about">Acerca de</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Categorias</li>
+                        <li><a href="@routes.CategoryCont.listCategorys()">Categorias</a></li>
+                        <li class="nav-header">Cuentas</li>
+                        <li><a href="@routes.Account.listBanks()">Cuentas Bancarias</a></li>
+                        <li><a href="@routes.Account.listCards()">Tarjetas</a></li>
+                        <li class="nav-header">Movimientos</li>
+                        <li><a href="@routes.ClosureCont.listClosures()">Cierres Mensuales</a></li>
+                        <li><a href="@routes.MovementCont.listMovements()">Movimientos</a></li>
+                        <li class="nav-header">Reportes</li>
+                        <li><a href="@routes.CategoryCont.categoryAmountReport()">Gastos Por Categoria</a></li>
+                    </ul>
+                </div><!--/.well -->
+            </div><!--/span-->
+            <div class="span9">
+                @content
+            </div><!--/span-->
+        </div><!--/row-->
+
+        <hr>
+
+        <footer>
+            <p>&copy; caeycae 2013</p>
+        </footer>
+
+    </div><!--/.fluid-container-->
         
     </body>
 </html>

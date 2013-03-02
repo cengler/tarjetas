@@ -16,14 +16,14 @@
         </fieldset>
         
         <div class="actions">
-            <input type="submit" value="Guardar cambios" class="btn primary"> or
+            <input type="submit" value="Guardar cambios" class="btn btn-primary"> or
             <a href="@routes.Account.listBanks()" class="btn">Cancel</a>
         </div>
         
     }
     
     @form(routes.Account.deleteBank(id), 'class -> "topRight") {
-        <input type="submit" value="Borrar esta cuenta" class="btn danger">
+        <input type="submit" value="Borrar esta cuenta" class="btn btn-danger">
     }
     
 }

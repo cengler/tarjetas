@@ -37,13 +37,13 @@
         </fieldset>
         
         <div class="actions">
-            <input type="submit" value="Guardar cambios" class="btn primary"> or
+            <input type="submit" value="Guardar cambios" class="btn btn-primary"> or
             <a href="@routes.MovementCont.listMovements()" class="btn">Cancel</a>
         </div>
         
     }
     
     @form(routes.MovementCont.deleteMovement(id), 'class -> "topRight") {
-        <input type="submit" value="Borrar este movimiento" class="btn danger">
+        <input type="submit" value="Borrar este movimiento" class="btn btn-danger">
     }
 }

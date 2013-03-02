@@ -47,12 +47,12 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
 
     <div id="actions">
 
-        <form action="@link(0, "description")" method="GET">
+        <form class="form-search" action="@link(0, "description")" method="GET">
         <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre de cuenta...">
-        <input type="submit" id="searchsubmit" value="Filtrar por nombre de cuenta" class="btn primary">
+        <input type="submit" id="searchsubmit" value="Filtrar por nombre de cuenta" class="btn btn-primary">
         </form>
 
-        <!--a class="btn success" id="add" href="@routes.MovementCont.createPayment()">Agregar Movimiento</a-->
+        <!--a class="btn btn-success" id="add" href="@routes.MovementCont.createPayment()">Agregar Movimiento</a-->
 
     </div>
 
@@ -64,7 +64,7 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
 
     } else {
 
-        <table class="computers zebra-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 @header("date", "Fecha")
