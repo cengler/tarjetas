@@ -1,0 +1,10 @@
+@(titulo:String)
+
+@main {
+    <p><a href="@routes.Account.listBanks()" class="btn">Cuentas</a></p>
+    <p><a href="@routes.Account.listCards()" class="btn">Tarjetas</a></p>
+    <p><a href="@routes.CategoryCont.listCategorys()" class="btn">Categorias</a></p>
+    <p><a href="@routes.MovementCont.listMovements()" class="btn">Movimientos</a></p>
+    <p><a href="@routes.ClosureCont.listClosures()" class="btn">Cierres Mensuales</a></p>
+    <p><a href="@routes.CategoryCont.categoryAmountReport()" class="btn">Gastos Por Categoria</a></p>
+}
