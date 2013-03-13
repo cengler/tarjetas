@@ -1,0 +1,32 @@
+@(closureForm: Form[Closure])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main {
+    
+    <h1>Efectuar Cierre</h1>
+    
+    @form(routes.ClosureCont.saveClosure()) {
+        
+        <fieldset>
+            @select(
+            closureForm("account.id"),
+            options(models.Account.all),
+            '_label -> "Cuenta", '_default -> "-- Seleccione una cuenta --",
+            '_showConstraints -> false
+            )
+            @input(closureForm("date")) { (id, name, value, args) =>
+            <input type="date" name="@name" id="@id" @toHtmlArgs(args)>
+            }
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Efectuar Cierre" class="btn btn-primary"> or
+            <a href="@routes.ClosureCont.listClosures()" class="btn">Cancelar</a>
+        </div>
+        
+    }
+    
+}

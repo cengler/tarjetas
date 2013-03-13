@@ -1,0 +1,17 @@
+@(id: Long)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@main {
+
+<h1>Editar Cierre</h1>
+
+Los cierres no pueden ser editados, en caso de un error se lo puede eliminar y generar nuevamente
+
+@form(routes.ClosureCont.deleteClosure(id), 'class -> "topRight") {
+    <input type="submit" value="Borrar este cierre" class="btn btn-danger">
+}
+
+}

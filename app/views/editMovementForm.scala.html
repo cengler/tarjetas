@@ -7,9 +7,9 @@
 @main {
     
     <h1>Editar Movimiento</h1>
-    
+
     @form(routes.MovementCont.updateMovement(id)) {
-        
+
         <fieldset>
             @inputText(movementForm("description"), '_label -> "Concepto" )
             @select(
@@ -35,12 +35,12 @@
             '_showConstraints -> false
             )
         </fieldset>
-        
+
         <div class="actions">
             <input type="submit" value="Guardar cambios" class="btn btn-primary"> or
             <a href="@routes.MovementCont.listMovements()" class="btn">Cancel</a>
         </div>
-        
+
     }
     
     @form(routes.MovementCont.deleteMovement(id), 'class -> "topRight") {

@@ -52,7 +52,7 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
         <input type="submit" id="searchsubmit" value="Filtrar por nombre de cuenta" class="btn btn-primary">
         </form>
 
-        <!--a class="btn btn-success" id="add" href="@routes.MovementCont.createPayment()">Agregar Movimiento</a-->
+        <a class="btn btn-success" id="add" href="@routes.ClosureCont.createClosure()">Efectuar Cierre</a>
 
     </div>
 
@@ -76,7 +76,7 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
 
             @for(closure <- currentPage.getList) {
             <tr>
-                <td><!--a href="@routes.MovementCont.editMovement(closure.id)">@closure.date</a-->@closure.date.format("dd MMM")</td>
+                <td><a href="@routes.ClosureCont.editClosure(closure.id)">@closure.date.format("dd-MM-yy")</a></td>
                 <td>
                     @if(closure.amount == null) {
                     <em>-</em>
