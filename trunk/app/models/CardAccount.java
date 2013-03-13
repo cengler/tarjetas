@@ -1,16 +1,19 @@
 package models;
 
+import com.avaje.ebean.Filter;
 import com.avaje.ebean.Page;
 import play.db.ebean.Model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 import play.data.format.*;
 import play.data.validation.*;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -40,6 +43,9 @@ public class CardAccount extends Account {
     @Constraints.Required
     public Integer payDay;
 
+    @Transient
+    private Double amount;
+
     /**
      * Generic query helper for entity CardAccount with id Long
      */
@@ -52,5 +58,23 @@ public class CardAccount extends Account {
                         .orderBy(sortBy + " " + order)
                         .findPagingList(pageSize)
                         .getPage(page);
+    }
+
+    public Double getAmount() {
+        Filter<Movement> movementsFilter = Movement.find.filter();
+        movementsFilter.eq("account.id", id);
+        List<Movement> movements = movementsFilter.filter(Movement.find.all());
+        Double total = 0d;
+        for (Movement m : movements) {
+            if(m.ptype == Movement.MovementType.EGRESO)
+                total += m.amount;
+            else
+                total -= m.amount;
+        }
+        return total;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }

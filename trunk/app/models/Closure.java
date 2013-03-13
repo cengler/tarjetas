@@ -28,10 +28,9 @@ public class Closure extends Model {
     public Account account;
 
     @Constraints.Required
-    @Formats.DateTime(pattern="yyyy-MM")
+    @Formats.DateTime(pattern="yyyy-MM-dd")
     public Date date;
 
-    @Constraints.Required
     public Double amount;
 
     public static Finder<Long,Closure> find = new Finder<Long,Closure>(Long.class, Closure.class);

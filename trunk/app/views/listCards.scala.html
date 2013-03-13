@@ -81,6 +81,7 @@ routes.Account.listCards(newPage, sortBy, order, currentFilter)
                 @header("closeWeekNumber", "Numero de samana de cierre")
                 @header("closeWeekday", "Dia de la semana de cierre")
                 @header("payDay", "Dia de Cobro")
+                <th>Monto</th>
                 <th>Accion</th>
             </tr>
             </thead>
@@ -129,6 +130,14 @@ routes.Account.listCards(newPage, sortBy, order, currentFilter)
                     <em>-</em>
                     } else {
                     @card.payDay
+                    }
+                </td>
+
+                <td>
+                    @if(card.getAmount() == null) {
+                    <em>-</em>
+                    } else {
+                    @card.getAmount()
                     }
                 </td>
                 <td><a href="@routes.MovementCont.listMovements(0,"description","asc","",card.id)">Ver Movimientos</a></td>
