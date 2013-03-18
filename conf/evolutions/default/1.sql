@@ -39,6 +39,7 @@ create table movement (
   date                      timestamp,
   category_id               bigint,
   account_id                bigint,
+  closure_id                bigint,
   constraint ck_movement_ptype check (ptype in (0,1)),
   constraint pk_movement primary key (id))
 ;
@@ -57,6 +58,8 @@ alter table movement add constraint fk_movement_category_2 foreign key (category
 create index ix_movement_category_2 on movement (category_id);
 alter table movement add constraint fk_movement_account_3 foreign key (account_id) references account (id) on delete restrict on update restrict;
 create index ix_movement_account_3 on movement (account_id);
+alter table movement add constraint fk_movement_closure_4 foreign key (closure_id) references closure (id) on delete restrict on update restrict;
+create index ix_movement_closure_4 on movement (closure_id);
 
 
 

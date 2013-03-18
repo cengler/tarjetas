@@ -1,4 +1,4 @@
-@(currentPage: com.avaje.ebean.Page[Movement], currentSortBy: String, currentOrder: String, currentFilter: String, accountId: Long)
+@(currentPage: com.avaje.ebean.Page[Movement], currentSortBy: String, currentOrder: String, currentFilter: String, accountId: Long, closureId: Long)
 
 @****************************************
 * Helper generating navigation links    *
@@ -87,6 +87,7 @@ routes.MovementCont.listMovements(newPage, sortBy, order, currentFilter)
                 @header("amount", "Monto")
                 @header("date", "Fecha")
                 @header("account", "Cuenta")
+                @header("account", "Cierre")
             </tr>
             </thead>
             <tbody>
@@ -127,6 +128,13 @@ routes.MovementCont.listMovements(newPage, sortBy, order, currentFilter)
                     <em>-</em>
                     } else {
                     @movement.account.name [@movement.account.number]
+                    }
+                </td>
+                <td>
+                    @if(movement.closure == null) {
+                    <em>-</em>
+                    } else {
+                    @movement.closure.date.format("dd MMM yyyy")
                     }
                 </td>
             </tr>

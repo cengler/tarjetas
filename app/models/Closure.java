@@ -8,7 +8,9 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,6 +34,9 @@ public class Closure extends Model {
     public Date date;
 
     public Double amount;
+
+    @OneToMany
+    public List<Movement> movements;
 
     public static Finder<Long,Closure> find = new Finder<Long,Closure>(Long.class, Closure.class);
 

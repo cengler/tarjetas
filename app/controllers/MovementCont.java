@@ -21,13 +21,13 @@ import static play.data.Form.form;
 public class MovementCont extends Controller {
 
     public static Result GO_MOVEMENT = redirect(
-            routes.MovementCont.listMovements(0, "date", "asc", "", 0)
+            routes.MovementCont.listMovements(0, "date", "asc", "", 0, 0)
     );
 
-    public static Result listMovements(int page, String sortBy, String order, String filter, Long accountId) {
+    public static Result listMovements(int page, String sortBy, String order, String filter, Long accountId, Long closureId) {
         return ok(listMovements.render(
-                models.Movement.page(page, 10, sortBy, order, filter, accountId),
-                sortBy, order, filter, accountId)
+                models.Movement.page(page, 10, sortBy, order, filter, accountId, closureId),
+                sortBy, order, filter, accountId, closureId)
         );
     }
 

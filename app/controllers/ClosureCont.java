@@ -2,6 +2,7 @@
 package controllers;
 
 import com.avaje.ebean.Filter;
+import com.avaje.ebean.Query;
 import models.Category;
 import models.Closure;
 import models.Movement;
@@ -12,6 +13,7 @@ import views.html.listClosures;
 import views.html.editClosureForm;
 import views.html.createClosureForm;
 
+import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -50,22 +52,43 @@ public class ClosureCont extends Controller {
         }
         Closure c = closureForm.get();
 
-        // obtengo gastos de la tarjeta TODO ver de solo tomar movimientos despues de la ultima clausura
-        Filter<Movement> movementsFilter = Movement.find.filter();
-        movementsFilter.eq("account.id", c.account.id);
-        List<Movement> movements = movementsFilter.filter(Movement.find.all());
-        Double total = 0d;
+        // OBTENGO LA FECHA DEL ULTIMO CIERRE PARA ESA CUENTA
+        Closure lastClosure = null;
+        Query closureQuery = Closure.find.query();
+        closureQuery.setMaxRows(1);
+        closureQuery.where().eq("account.id", c.account.id);
+        closureQuery.where().setOrderBy("date desc");
+        List<Closure> list = closureQuery.where().findList();
+        if(list.size() != 0)
+            lastClosure = list.get(0);
+
+        // OBTENGO TODOS LOS MOVIMIENTOS DE ESA CUENTA QUE SEAN POSTERIORES AL ULTIMO CIERRE
+        Query movementQuery = Movement.find.query();
+        movementQuery.where().eq("account.id", c.account.id);
+        if(lastClosure != null)
+            movementQuery.where().ge("date", lastClosure.date);
+        List<Movement> movements = movementQuery.findList();
+
+        // OBTENGO EL MONTO DISPONIBLE EN LA CUENTA
+        Double saldo = 0d;
+        if(lastClosure != null)
+            saldo = lastClosure.amount;
         for (Movement m : movements) {
             if(m.ptype == Movement.MovementType.EGRESO)
-                total += m.amount;
+                saldo -= m.amount;
             else
-                total -= m.amount;
+                saldo += m.amount;
         }
-        c.amount = total;
+        c.amount = saldo;
 
+        // SALVO EL CIERRE Y ACTUALIZO LOS MOVIMIENTOS A ESE CIERRE
         c.save();
+        for (Movement m : movements) {
+            m.setClosure(c);
+            m.save();
+        }
 
-        flash("success", "El cierre de la cuenta " + c.account.name  + "[" + c.account.number + "] ha sido efectuado");
+        flash("success", "El cierre de la cuenta " + c.account.name  + "[" + c.account.number + "] ha sido efectuado para " + movements.size() + " movimientos");
         return GO_CLOSURE;
     }
 

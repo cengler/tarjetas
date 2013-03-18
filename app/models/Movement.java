@@ -39,12 +39,18 @@ public class Movement extends Model {
     @ManyToOne
     public Account account;
 
+    @ManyToOne
+    public Closure closure;
+
     public static Finder<Long,Movement> find = new Finder<Long,Movement>(Long.class, Movement.class);
 
-    public static Page<Movement> page(int page, int pageSize, String sortBy, String order, String filter, Long accountId) {
+    public static Page<Movement> page(int page, int pageSize, String sortBy, String order,
+                                      String filter, Long accountId, Long closureId) {
         Query query = find.where().ilike("description", "%" + filter + "%").orderBy(sortBy + " " + order);
         if(accountId != null && accountId != 0)
             query.where().eq("account.id", accountId);
+        if(closureId != null && closureId != 0)
+            query.where().eq("closure.id", closureId);
         return query.findPagingList(pageSize).getPage(page);
     }
 
@@ -74,5 +80,9 @@ public class Movement extends Model {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setClosure(Closure closure) {
+        this.closure = closure;
     }
 }
