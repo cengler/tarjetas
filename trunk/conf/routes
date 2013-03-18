@@ -37,7 +37,7 @@ POST    /movements                  controllers.MovementCont.savePayment()
 GET     /movements/:id              controllers.MovementCont.editMovement(id:Long)
 POST    /movements/:id              controllers.MovementCont.updateMovement(id:Long)
 POST    /movements/:id/delete       controllers.MovementCont.deleteMovement(id:Long)
-GET     /movements                  controllers.MovementCont.listMovements(p:Int ?= 0, s ?= "description", o ?= "asc", f ?= "", c:Long ?= 0)
+GET     /movements                  controllers.MovementCont.listMovements(p:Int ?= 0, s ?= "description", o ?= "asc", f ?= "", c:Long ?= 0, cl:Long ?=0)
 
 # closures
 GET     /closures                   controllers.ClosureCont.listClosures(p:Int ?= 0, s ?= "date", o ?= "asc", f ?= "")
@@ -45,6 +45,7 @@ GET     /closures/new               controllers.ClosureCont.createClosure()
 POST    /closures                   controllers.ClosureCont.saveClosure()
 GET     /closures/:id               controllers.ClosureCont.editClosure(id:Long)
 POST    /closures/:id/delete        controllers.ClosureCont.deleteClosure(id:Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

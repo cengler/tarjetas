@@ -70,6 +70,7 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
                 @header("date", "Fecha")
                 @header("amount", "Monto")
                 @header("account", "Cuenta")
+                <th>Accion</th>
             </tr>
             </thead>
             <tbody>
@@ -91,6 +92,7 @@ routes.ClosureCont.listClosures(newPage, sortBy, order, currentFilter)
                     @closure.account.name [@closure.account.number]
                     }
                 </td>
+                <td><a href="@routes.MovementCont.listMovements(0,"description","asc","",0,closure.id)">Ver Movimientos</a></td>
             </tr>
             }
 

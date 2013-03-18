@@ -10,11 +10,9 @@ insert into category (id, name) values (1003, 'Comida');
 insert into category (id, name) values (1004, 'Indumentaria');
 
 insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1001, 0, 'Sueldo', 9000, '2013-11-11', 1002, 1001);
-insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1002, 1, 'Tele', 1000, '2013-11-11', 1001, 1001);
+insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1002, 1, 'Tele', 190, '2013-11-11', 1001, 1001);
 insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1003, 1, 'Pan', 10, '2013-11-11', 1003, 1001);
 insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1004, 1, 'Pan', 10, '2013-11-11', 1003, 1002);
 insert into movement(id, ptype, description, amount, date, category_id, account_id) values (1005, 1, 'Pan', 40, '2013-11-11', 1003, 1002);
 
-insert into closure(id, date, amount, account_id) values (1001, '2013-11-11', 9000, 1002);
-insert into closure(id, date, amount, account_id) values (1002, '2013-11-10', 8000, 1001);
 # --- !Downs
